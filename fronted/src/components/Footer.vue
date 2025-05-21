@@ -9,9 +9,6 @@
   background-color: #2c3e50;
   color: white;
   text-align: center;
-  padding: 1rem;
-  position: relative;
-  bottom: 0;
-  width: 100%;
+  padding: 1rem 2rem;
 }
 </style>

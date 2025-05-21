@@ -5,7 +5,7 @@
       <li><a href="/">Início</a></li>
       <li><a href="#">Alojamentos</a></li>
       <li><a href="#">Eventos</a></li>
-      <li><a href="#">Login</a></li>
+      <li><a href="/login">Login</a></li>
     </ul>
   </nav>
 </template>
