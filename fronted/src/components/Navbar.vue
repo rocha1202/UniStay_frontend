@@ -3,8 +3,8 @@
     <div class="logo">UniStay</div>
     <ul class="nav-links">
       <li><a href="/">Início</a></li>
-      <li><a href="#">Alojamentos</a></li>
-      <li><a href="#">Eventos</a></li>
+      <li><a href="/alojamentos">Alojamentos</a></li>
+      <li><a href="/eventos">Eventos</a></li>
       <li><a href="/login">Login</a></li>
     </ul>
   </nav>
