@@ -14,13 +14,30 @@
 
 <script setup>
 import { ref } from 'vue'
+import axios from 'axios'
+import { useRouter } from 'vue-router'
 
 const email = ref('')
 const password = ref('')
+const router = useRouter()
 
-function handleLogin() {
-  console.log('Login com:', email.value, password.value)
+async function handleLogin() {
+  try {
+    const res = await axios.post('http://localhost:3000/auth/login', {
+      email: email.value,
+      password: password.value
+    })
+
+    localStorage.setItem('token', res.data.token)
+    alert('Login efetuado com sucesso!')
+    router.push('/alojamentos') // redireciona após login
+
+  } catch (err) {
+    console.error('Erro no login:', err)
+    alert('Credenciais inválidas.')
+  }
 }
+
 </script>
 
 <style scoped>
@@ -28,7 +45,8 @@ function handleLogin() {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 100px); /* subtrai altura do navbar+footer se necessário */
+  min-height: calc(100vh - 100px);
+  /* subtrai altura do navbar+footer se necessário */
   padding: 1rem;
 }
 
@@ -39,7 +57,7 @@ function handleLogin() {
   background: #f7f7f7;
   border-radius: 10px;
   text-align: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 input {
