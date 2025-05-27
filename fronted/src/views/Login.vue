@@ -16,6 +16,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 
 const email = ref('')
 const password = ref('')
@@ -26,15 +27,26 @@ async function handleLogin() {
     const res = await axios.post('http://localhost:3000/auth/login', {
       email: email.value,
       password: password.value
-    })
+    });
 
-    localStorage.setItem('token', res.data.token)
-    alert('Login efetuado com sucesso!')
-    router.push('/alojamentos') // redireciona após login
 
+    // Check if the response contains a token
+    if (res.data && res.data.token) {
+      localStorage.setItem('token', res.data.token);
+      alert('Login efetuado com sucesso!');
+
+
+      const auth = useAuthStore();
+      auth.login(res.data.token); // Use the token from the response
+
+
+      router.push('/alojamentos');
+    } else {
+      alert('Erro: Token não recebido.');
+    }
   } catch (err) {
-    console.error('Erro no login:', err)
-    alert('Credenciais inválidas.')
+    console.error('Erro no login:', err);
+    alert('Credenciais inválidas.');
   }
 }
 
@@ -46,7 +58,6 @@ async function handleLogin() {
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 100px);
-  /* subtrai altura do navbar+footer se necessário */
   padding: 1rem;
 }
 

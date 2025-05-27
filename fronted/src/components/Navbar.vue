@@ -6,27 +6,20 @@
       <li><router-link to="/alojamentos">Alojamentos</router-link></li>
       <li><router-link to="/eventos">Eventos</router-link></li>
 
-      <li v-if="!isLoggedIn">
-        <router-link to="/login">Login</router-link>
-      </li>
-      <li v-else>
-        <router-link to="/perfil">Minha Conta</router-link>
-      </li>
+      <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
+      <li v-else><router-link to="/perfil">Minha Conta</router-link></li>
     </ul>
   </nav>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+import { storeToRefs } from 'pinia'
 
-const isLoggedIn = ref(false)
-
-onMounted(() => {
-  // Verifica se há token guardado, por exemplo
-  const token = localStorage.getItem('token')
-  isLoggedIn.value = !!token
-})
+const auth = useAuthStore()
+const { isLoggedIn } = storeToRefs(auth)
 </script>
+
 
 <style scoped>
 .navbar {
